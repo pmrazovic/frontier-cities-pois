@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pois</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Subtitle</th>
+      <th>Neighbourhood</th>
+      <th>Address</th>
+      <th>Telephone number</th>
+      <th>Website url</th>
+      <th>Longitude</th>
+      <th>Latitude</th>
+      <th>Transport</th>
+      <th>Working hours</th>
+      <th>Prices</th>
+      <th>Description</th>
+      <th>Restaurant prices</th>
+      <th>Hotel categories</th>
+      <th>Festival date</th>
+      <th>Data</th>
+      <th>Michelin stars</th>
+      <th>Architect name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pois.each do |poi| %>
+      <tr>
+        <td><%= poi.title %></td>
+        <td><%= poi.subtitle %></td>
+        <td><%= poi.neighbourhood_id %></td>
+        <td><%= poi.address %></td>
+        <td><%= poi.telephone_number %></td>
+        <td><%= poi.website_url %></td>
+        <td><%= poi.longitude %></td>
+        <td><%= poi.latitude %></td>
+        <td><%= poi.transport %></td>
+        <td><%= poi.working_hours %></td>
+        <td><%= poi.prices %></td>
+        <td><%= poi.description %></td>
+        <td><%= poi.restaurant_prices %></td>
+        <td><%= poi.hotel_categories %></td>
+        <td><%= poi.festival_date %></td>
+        <td><%= poi.data %></td>
+        <td><%= poi.michelin_stars %></td>
+        <td><%= poi.architect_name %></td>
+        <td><%= link_to 'Show', poi %></td>
+        <td><%= link_to 'Edit', edit_poi_path(poi) %></td>
+        <td><%= link_to 'Destroy', poi, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Poi', new_poi_path %>

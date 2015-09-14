@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @filter.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @filter.category_id %>
+</p>
+
+<p>
+  <strong>Subcategory:</strong>
+  <%= @filter.subcategory_id %>
+</p>
+
+<%= link_to 'Edit', edit_filter_path(@filter) %> |
+<%= link_to 'Back', filters_path %>
