@@ -1,3 +1,3 @@
 class Neighborhood < ActiveRecord::Base
-	belongs_to :poi
+	has_many :pois
 end

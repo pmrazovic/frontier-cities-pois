@@ -3,7 +3,7 @@ class CreatePois < ActiveRecord::Migration
     create_table :pois do |t|
       t.string :title
       t.string :subtitle
-      t.integer :neighbourhood_id
+      t.integer :neighborhood_id
       t.string :address
       t.string :telephone_number
       t.string :website_url
