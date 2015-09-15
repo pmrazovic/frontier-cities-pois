@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :neighborhoods
   resources :pois
   resources :filters
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'pois#index'
+  root :to => 'admin/poi'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
