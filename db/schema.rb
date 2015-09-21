@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921103632) do
+ActiveRecord::Schema.define(version: 20150921103633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 20150921103632) do
   create_table "categories_pois", id: false, force: :cascade do |t|
     t.integer "poi_id"
     t.integer "category_id"
+  end
+
+  create_table "concept_category_relevances", force: :cascade do |t|
+    t.integer  "concept_id"
+    t.integer  "category_id"
+    t.decimal  "relevance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "concepts", force: :cascade do |t|

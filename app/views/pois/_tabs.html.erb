@@ -1,3 +1,7 @@
+<%= link_to '<i class="fa fa-arrow-left"></i> Back to POIs'.html_safe, pois_path %>
+
+<h3 style="margin-bottom: 30px;"><%= @poi.title %></h3>
+
 <ul class="nav nav-tabs" style="margin-bottom: 30px;">
   <li role="presentation" class="<%= 'active' if controller_name == 'pois' && action_name == 'show' %>"><%= link_to "POI info", @poi %></li>
   <li role="presentation" class="<%= 'active' if controller_name == 'pois' && action_name == 'get_poi_keywords' %>"><%= link_to "Keywords", get_poi_keywords_poi_path(@poi) %></li>
