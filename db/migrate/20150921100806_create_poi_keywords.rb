@@ -4,8 +4,7 @@ class CreatePoiKeywords < ActiveRecord::Migration
     	t.integer :poi_id
     	t.integer :keyword_id
     	t.decimal :relevance
-    	t.string  :sentiment
-    	t.decimal :sentiment_score
+    	t.timestamps
     end
   end
 end

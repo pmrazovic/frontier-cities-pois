@@ -4,6 +4,7 @@ class CreatePoiConcepts < ActiveRecord::Migration
     	t.integer :poi_id
     	t.integer :concept_id
     	t.decimal :relevance
+    	t.timestamps
     end
   end
 end

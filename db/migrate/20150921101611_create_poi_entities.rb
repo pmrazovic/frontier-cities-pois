@@ -4,8 +4,7 @@ class CreatePoiEntities < ActiveRecord::Migration
     	t.integer :poi_id
     	t.integer :entity_id
     	t.decimal :relevance
-    	t.string 	:sentiment
-    	t.decimal :sentiment_score
+    	t.timestamp
     end
   end
 end
