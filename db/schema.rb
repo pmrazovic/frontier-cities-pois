@@ -11,13 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914175147) do
+ActiveRecord::Schema.define(version: 20150921081611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories_pois", id: false, force: :cascade do |t|
+    t.integer "poi_id"
+    t.integer "category_id"
+  end
+
+  create_table "concepts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "dbpedia_link"
+    t.string   "yago_link"
+    t.string   "freebase_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "entities", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -30,6 +51,17 @@ ActiveRecord::Schema.define(version: 20150914175147) do
     t.datetime "updated_at"
   end
 
+  create_table "filters_pois", id: false, force: :cascade do |t|
+    t.integer "poi_id"
+    t.integer "filter_id"
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string   "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"
     t.integer  "district_id"
@@ -38,10 +70,32 @@ ActiveRecord::Schema.define(version: 20150914175147) do
     t.datetime "updated_at"
   end
 
+  create_table "poi_concepts", force: :cascade do |t|
+    t.integer "poi_id"
+    t.integer "concept_id"
+    t.decimal "relevance"
+  end
+
+  create_table "poi_entities", force: :cascade do |t|
+    t.integer "poi_id"
+    t.integer "entity_id"
+    t.decimal "relevance"
+    t.string  "sentiment"
+    t.decimal "sentiment_score"
+  end
+
+  create_table "poi_keywords", force: :cascade do |t|
+    t.integer "poi_id"
+    t.integer "keyword_id"
+    t.decimal "relevance"
+    t.string  "sentiment"
+    t.decimal "sentiment_score"
+  end
+
   create_table "pois", force: :cascade do |t|
     t.string   "title"
     t.string   "subtitle"
-    t.integer  "neighbourhood_id"
+    t.integer  "neighborhood_id"
     t.string   "address"
     t.string   "telephone_number"
     t.string   "website_url"
@@ -59,16 +113,6 @@ ActiveRecord::Schema.define(version: 20150914175147) do
     t.string   "architect_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "pois_categories", id: false, force: :cascade do |t|
-    t.integer "poi_id"
-    t.integer "category_id"
-  end
-
-  create_table "pois_filters", id: false, force: :cascade do |t|
-    t.integer "poi_id"
-    t.integer "filter_id"
   end
 
   create_table "pois_subcategories", id: false, force: :cascade do |t|
