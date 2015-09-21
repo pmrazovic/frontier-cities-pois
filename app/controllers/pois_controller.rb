@@ -1,10 +1,12 @@
+require 'alchemyapi'
+
 class PoisController < ApplicationController
-  before_action :set_poi, only: [:show, :edit, :update, :destroy]
+  before_action :set_poi, only: [:show, :edit, :update, :destroy, :get_poi_keywords, :get_poi_entities, :get_poi_concepts, :get_poi_text_categorization, :get_poi_taxonomy]
 
   # GET /pois
   # GET /pois.json
   def index
-    @pois = Poi.all
+    @pois = Poi.all.paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /pois/1
@@ -59,6 +61,31 @@ class PoisController < ApplicationController
       format.html { redirect_to pois_url, notice: 'Poi was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def get_poi_keywords
+    alchemyapi = AlchemyAPI.new()
+    @response = alchemyapi.keywords('text', @poi.description, { 'sentiment'=>1 })
+  end
+
+  def get_poi_entities
+    alchemyapi = AlchemyAPI.new()
+    @response = alchemyapi.entities('text', @poi.description, { 'sentiment'=>1 })
+  end
+
+  def get_poi_concepts
+    alchemyapi = AlchemyAPI.new()
+    @response = alchemyapi.concepts('text', @poi.description)
+  end
+
+  def get_poi_text_categorization
+    alchemyapi = AlchemyAPI.new()
+    @response = alchemyapi.category('text', @poi.description)
+  end
+
+  def get_poi_taxonomy
+    alchemyapi = AlchemyAPI.new()
+    @response = alchemyapi.taxonomy('text', @poi.description)
   end
 
   private

@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs" style="margin-bottom: 30px;">
+  <li role="presentation" class="<%= 'active' if controller_name == 'pois' && action_name == 'show' %>"><%= link_to "POI info", @poi %></li>
+  <li role="presentation" class="<%= 'active' if controller_name == 'pois' && action_name == 'get_poi_keywords' %>"><%= link_to "Keywords", get_poi_keywords_poi_path(@poi) %></li>
+  <li role="presentation" class="<%= 'active' if controller_name == 'pois' && action_name == 'get_poi_entities' %>"><%= link_to "Entities", get_poi_entities_poi_path(@poi) %></li>
+  <li role="presentation" class="<%= 'active' if controller_name == 'pois' && action_name == 'get_poi_concepts' %>"><%= link_to "Concepts", get_poi_concepts_poi_path(@poi) %></li>
+  <li role="presentation" class="<%= 'active' if controller_name == 'pois' && action_name == 'get_poi_text_categorization' %>"><%= link_to "Text categorization", get_poi_text_categorization_poi_path(@poi) %></li>
+  <li role="presentation" class="<%= 'active' if controller_name == 'pois' && action_name == 'get_poi_taxonomy' %>"><%= link_to "Taxonomy", get_poi_taxonomy_poi_path(@poi) %></li>
+</ul>

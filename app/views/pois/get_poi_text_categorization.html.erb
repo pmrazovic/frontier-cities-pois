@@ -1,0 +1,22 @@
+<h3 style="margin-bottom: 30px;"><%= @poi.title %></h3>
+
+<%= render :partial => 'tabs' %>
+
+<% if @response['category'].blank? %>
+	<div class="alert alert-danger" role="alert">No categorization...</div>
+<% else %>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Category</th>
+				<th>Score</th>
+			</tr>
+		</thead>
+		<tr>
+			<td><%= @response['category'] %></td>
+			<td><%= @response['score'] %></td>
+		</tr>
+	</table>
+
+<% end %>

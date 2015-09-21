@@ -1,0 +1,28 @@
+<h3 style="margin-bottom: 30px;"><%= @poi.title %></h3>
+
+<%= render :partial => 'tabs' %>
+
+<% if @response['concepts'].blank? %>
+	<div class="alert alert-danger" role="alert">No concepts...</div>
+<% else %>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Text</th>
+				<th>Relevance</th>
+				<th>Links</th>
+			</tr>
+		</thead>
+		<% for concept in @response['concepts'] %>
+			<tr>
+				<td><%= concept['text'] %></td>
+				<td><%= concept['relevance'] %></td>
+				<td>
+					<%= link_to "DBpedia", concept['dbpedia'] %> | <%= link_to "yago", concept['yago'] %> | <%= link_to "freebase", concept['freebase'] %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+
+<% end %>

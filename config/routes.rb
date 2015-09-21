@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :neighborhoods
-  resources :pois
+  resources :pois do
+    member do
+      get 'get_poi_keywords'
+      get 'get_poi_entities'
+      get 'get_poi_concepts'
+      get 'get_poi_text_categorization'
+      get 'get_poi_taxonomy'
+    end
+  end
   resources :filters
   resources :subcategories
   resources :categories
-  resources :pois
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

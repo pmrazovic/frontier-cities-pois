@@ -1,94 +1,110 @@
-<p id="notice"><%= notice %></p>
+<%= link_to '<i class="fa fa-arrow-left"></i> Back to POIs'.html_safe, pois_path %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @poi.title %>
-</p>
+<h3 style="margin-bottom: 30px;"><%= @poi.title %></h3>
 
-<p>
-  <strong>Subtitle:</strong>
-  <%= @poi.subtitle %>
-</p>
+<%= render :partial => 'tabs' %>
 
-<p>
-  <strong>Neighbourhood:</strong>
-  <%= @poi.neighborhood_id %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @poi.address %>
-</p>
-
-<p>
-  <strong>Telephone number:</strong>
-  <%= @poi.telephone_number %>
-</p>
-
-<p>
-  <strong>Website url:</strong>
-  <%= @poi.website_url %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @poi.longitude %>
-</p>
-
-<p>
-  <strong>Latitude:</strong>
-  <%= @poi.latitude %>
-</p>
-
-<p>
-  <strong>Transport:</strong>
-  <%= @poi.transport %>
-</p>
-
-<p>
-  <strong>Working hours:</strong>
-  <%= @poi.working_hours %>
-</p>
-
-<p>
-  <strong>Prices:</strong>
-  <%= @poi.prices %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @poi.description %>
-</p>
-
-<p>
-  <strong>Restaurant prices:</strong>
-  <%= @poi.restaurant_prices %>
-</p>
-
-<p>
-  <strong>Hotel categories:</strong>
-  <%= @poi.hotel_categories %>
-</p>
-
-<p>
-  <strong>Festival date:</strong>
-  <%= @poi.festival_date %>
-</p>
-
-<p>
-  <strong>Data:</strong>
-  <%= @poi.data %>
-</p>
-
-<p>
-  <strong>Michelin stars:</strong>
-  <%= @poi.michelin_stars %>
-</p>
-
-<p>
-  <strong>Architect name:</strong>
-  <%= @poi.architect_name %>
-</p>
-
-<%= link_to 'Edit', edit_poi_path(@poi) %> |
-<%= link_to 'Back', pois_path %>
+<table class="table table-bordered">
+  <tr>
+    <th class="active" style="width: 160px">Title</th>
+    <td><%= @poi.title %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Subtitle</th>
+    <td><%= @poi.subtitle %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Categories</th>
+    <td>
+      <% @poi.categories.each do |cat| %>
+        <span class="label label-primary"><%= cat.name %></span>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Subcategories</th>
+    <td>
+      <% @poi.subcategories.each do |subcat| %>
+        <span class="label label-warning"><%= subcat.name %></span>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Filters</th>
+    <td>
+      <% @poi.filters.each do |fil| %>
+        <span class="label label-success"><%= fil.name %></span>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Neighborhood</th>
+    <td><%= @poi.neighborhood.name %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Address</th>
+    <td><%= @poi.address %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Telephone no.</th>
+    <td><%= @poi.telephone_number %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Website URL</th>
+    <td><%= link_to @poi.website_url, @poi.website_url %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Longitude</th>
+    <td><%= @poi.longitude %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Latitude</th>
+    <td><%= @poi.latitude %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Transport</th>
+    <td><%= @poi.transport %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Working hours</th>
+    <td><%= @poi.working_hours %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Prices</th>
+    <td><%= @poi.prices %></td>
+  </tr>
+  <tr>
+    <th class="active" style="width: 160px">Description</th>
+    <td><%= @poi.description %></td>
+  </tr>
+  <% unless  @poi.restaurant_prices.blank? %>
+    <tr>
+      <th class="active" style="width: 160px">Restaurant prices</th>
+      <td><%= @poi.restaurant_prices %></td>
+    </tr>
+  <% end %>
+  <% unless  @poi.hotel_categories.blank? %>
+    <tr>
+      <th class="active" style="width: 160px">Hotel categories</th>
+      <td><%= @poi.hotel_categories %></td>
+    </tr>
+  <% end %>
+  <% unless  @poi.festival_date.blank? %>
+    <tr>
+      <th class="active" style="width: 160px">Festival date</th>
+      <td><%= @poi.festival_date %></td>
+    </tr>
+  <% end %>
+  <% unless  @poi.michelin_stars.blank? %>
+    <tr>
+      <th class="active" style="width: 160px">Michelin stars</th>
+      <td><%= @poi.michelin_stars %></td>
+    </tr>
+  <% end %>
+  <% unless  @poi.architect_name.blank? %>
+    <tr>
+      <th class="active" style="width: 160px">Architect name</th>
+      <td><%= @poi.architect_name %></td>
+    </tr>
+  <% end %>
+</table>

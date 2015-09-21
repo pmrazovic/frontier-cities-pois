@@ -1,0 +1,28 @@
+<h3 style="margin-bottom: 30px;"><%= @poi.title %></h3>
+
+<%= render :partial => 'tabs' %>
+
+<% if @response['taxonomy'].blank? %>
+	<div class="alert alert-danger" role="alert">No taxonomy...</div>
+<% else %>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Label</th>
+				<th>Score</th>
+				<th>Confident</th>
+			</tr>
+		</thead>
+		<% for taxonomy in @response['taxonomy'] %>
+			<tr>
+				<td><%= taxonomy['label'] %></td>
+				<td><%= taxonomy['score'] %></td>
+				<td>
+					<%= taxonomy['confident']	if taxonomy.key?('confident') %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+
+<%end%>

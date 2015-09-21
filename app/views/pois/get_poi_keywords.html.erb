@@ -1,0 +1,27 @@
+<h3 style="margin-bottom: 30px;"><%= @poi.title %></h3>
+
+<%= render :partial => 'tabs' %>
+
+<% if @response['keywords'].blank? %>
+	<div class="alert alert-danger" role="alert">No keywords...</div>
+<% else %>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Text</th>
+				<th>Relevance</th>
+				<th>Sentiment type</th>
+				<th>Sentiment score</th>
+			</tr>
+		</thead>
+		<% for keyword in @response['keywords'] %>
+			<tr>
+				<td><%= keyword['text'] %></td>
+				<td><%= keyword['relevance'] %></td>
+				<td><%= keyword['sentiment']['type'] %></td>
+				<td><%= keyword['sentiment']['score'] %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
