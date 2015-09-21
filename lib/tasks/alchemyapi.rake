@@ -10,10 +10,10 @@ namespace :alchemyapi do
   	Entity.delete_all
   	PoiEntity.delete_all
 
-  	pois = Poi.joins(:categories).where("categories.name in ('Museums','Architecture', 'Art', 'Leisure', 'Shopping')").first
+  	pois = Poi.joins(:categories).where("categories.name in ('Museums','Architecture', 'Art', 'Leisure', 'Shopping')")
   	alchemyapi = AlchemyAPI.new()
 
-  	pois.each do |poi|
+  	pois.each_with_index do |poi, index|
   		response = alchemyapi.combined('text', poi.description, { 'extract'=>'keyword,entity,concept' })
   			# Keywords
 				if response.key?('keywords')
@@ -37,7 +37,9 @@ namespace :alchemyapi do
 						new_concept = Concept.find_or_create_by(:name => concept['text'], :dbpedia_link => concept['dbpedia'])
 						new_poi_concept = PoiConcept.create(:concept => new_concept, :poi => poi, :relevance => concept['relevance'])
 					end
-				end				
+				end		
+
+				print "\r#{(((index+1).to_f/pois.length)*100).round(2)}% complete"		
 
   	end
 
