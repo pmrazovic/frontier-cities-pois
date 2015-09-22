@@ -4,4 +4,5 @@ class Category < ActiveRecord::Base
 	has_many :filters
 	has_many :concept_category_relevances
 	has_many :keyword_category_relevances
+	has_many :entity_category_relevances
 end

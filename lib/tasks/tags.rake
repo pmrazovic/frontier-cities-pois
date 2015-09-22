@@ -5,6 +5,8 @@ namespace :tags do
   	ConceptSubcategoryRelevance.delete_all
   	KeywordCategoryRelevance.delete_all
   	KeywordSubcategoryRelevance.delete_all
+  	EntityCategoryRelevance.delete_all
+  	EntitySubcategoryRelevance.delete_all
 
   	# Relevance concept per category
   	categories = Category.where(:name => ['Museums', 'Architecture', 'Art', 'Leisure', 'Shopping'])
@@ -56,15 +58,34 @@ namespace :tags do
 				keyword_subcategory_relevance.occurrences += 1
 				keyword_subcategory_relevance.save
   		end
-
-	 		rels = KeywordSubcategoryRelevance.where(:subcategory_id => subcategory.id).order('relevance desc')
-  		puts "------------------------------------------>>>>>>>>>>>>>"
-  		puts subcategory.name
-  		rels.each do |rel|
-  			puts "#{rel.keyword.text} ---> #{rel.relevance} (#{rel.occurrences})"
-  		end
-
   	end
+
+  	# Relevance entity per category
+  	categories = Category.where(:name => ['Museums', 'Architecture', 'Art', 'Leisure', 'Shopping'])
+  	categories.each do |category|
+  		
+  		poi_entities = PoiEntity.joins(:poi => :categories).where("categories.id = #{category.id}").uniq
+  		poi_entities.each do |poi_entity|
+  			entity_category_relevance = EntityCategoryRelevance.find_or_create_by(:entity_id => poi_entity.entity_id, :category_id => category.id)
+				entity_category_relevance.relevance += poi_entity.relevance
+				entity_category_relevance.occurrences += 1
+				entity_category_relevance.save
+  		end
+  	end
+
+  	# Relevance entity per subcategory
+  	subcategories = Subcategory.joins(:category).where("categories.name IN ('Museums', 'Architecture', 'Art', 'Leisure', 'Shopping')")
+  	subcategories.each do |subcategory|
+  		
+  		poi_entities = PoiEntity.joins(:poi => :subcategories).where("subcategories.id = #{subcategory.id}").uniq
+  		poi_entities.each do |poi_entity|
+  			entity_subcategory_relevance = EntitySubcategoryRelevance.find_or_create_by(:entity_id => poi_entity.entity_id, :subcategory_id => subcategory.id)
+				entity_subcategory_relevance.relevance += poi_entity.relevance
+				entity_subcategory_relevance.occurrences += 1
+				entity_subcategory_relevance.save
+  		end
+  	end
+
 
   end
 
