@@ -1,7 +1,7 @@
 require 'alchemyapi'
 
 namespace :alchemyapi do
-  desc "Calling AlchemyAPI..."
+  desc "AlchemyAPI calls"
   task load_resources: :environment do
   	Keyword.delete_all
   	PoiKeyword.delete_all

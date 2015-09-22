@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921103634) do
+ActiveRecord::Schema.define(version: 20150921103654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,8 @@ ActiveRecord::Schema.define(version: 20150921103634) do
   create_table "concept_category_relevances", force: :cascade do |t|
     t.integer  "concept_id"
     t.integer  "category_id"
-    t.decimal  "relevance"
+    t.decimal  "relevance",   default: 0.0
+    t.integer  "occurrences", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,7 +39,8 @@ ActiveRecord::Schema.define(version: 20150921103634) do
   create_table "concept_subcategory_relevances", force: :cascade do |t|
     t.integer  "concept_id"
     t.integer  "subcategory_id"
-    t.decimal  "relevance"
+    t.decimal  "relevance",      default: 0.0
+    t.integer  "occurrences",    default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
