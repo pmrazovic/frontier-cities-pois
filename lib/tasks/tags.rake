@@ -3,6 +3,8 @@ namespace :tags do
   task compute_relevances: :environment do
   	ConceptCategoryRelevance.delete_all
   	ConceptSubcategoryRelevance.delete_all
+  	KeywordCategoryRelevance.delete_all
+  	KeywordSubcategoryRelevance.delete_all
 
   	# Relevance concept per category
   	categories = Category.where(:name => ['Museums', 'Architecture', 'Art', 'Leisure', 'Shopping'])
@@ -28,18 +30,41 @@ namespace :tags do
 				concept_subcategory_relevance.occurrences += 1
 				concept_subcategory_relevance.save
   		end
+  	end
 
+  	# Relevance keyword per category
+  	categories = Category.where(:name => ['Museums', 'Architecture', 'Art', 'Leisure', 'Shopping'])
+  	categories.each do |category|
+  		
+  		poi_keywords = PoiKeyword.joins(:poi => :categories).where("categories.id = #{category.id}").uniq
+  		poi_keywords.each do |poi_keyword|
+  			keyword_category_relevance = KeywordCategoryRelevance.find_or_create_by(:keyword_id => poi_keyword.keyword_id, :category_id => category.id)
+				keyword_category_relevance.relevance += poi_keyword.relevance
+				keyword_category_relevance.occurrences += 1
+				keyword_category_relevance.save
+  		end
+  	end
 
-  		rels = ConceptSubcategoryRelevance.where(:subcategory_id => subcategory.id).order('relevance desc')
+  	# Relevance keyword per subcategory
+  	subcategories = Subcategory.joins(:category).where("categories.name IN ('Museums', 'Architecture', 'Art', 'Leisure', 'Shopping')")
+  	subcategories.each do |subcategory|
+  		
+  		poi_keywords = PoiKeyword.joins(:poi => :subcategories).where("subcategories.id = #{subcategory.id}").uniq
+  		poi_keywords.each do |poi_keyword|
+  			keyword_subcategory_relevance = KeywordSubcategoryRelevance.find_or_create_by(:keyword_id => poi_keyword.keyword_id, :subcategory_id => subcategory.id)
+				keyword_subcategory_relevance.relevance += poi_keyword.relevance
+				keyword_subcategory_relevance.occurrences += 1
+				keyword_subcategory_relevance.save
+  		end
+
+	 		rels = KeywordSubcategoryRelevance.where(:subcategory_id => subcategory.id).order('relevance desc')
   		puts "------------------------------------------>>>>>>>>>>>>>"
   		puts subcategory.name
   		rels.each do |rel|
-  			puts "#{rel.concept.name} ---> #{rel.relevance} (#{rel.occurrences})"
+  			puts "#{rel.keyword.text} ---> #{rel.relevance} (#{rel.occurrences})"
   		end
 
   	end
-
-
 
   end
 

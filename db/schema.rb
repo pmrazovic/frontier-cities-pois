@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921103654) do
+ActiveRecord::Schema.define(version: 20150922095819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,24 @@ ActiveRecord::Schema.define(version: 20150921103654) do
   create_table "filters_pois", id: false, force: :cascade do |t|
     t.integer "poi_id"
     t.integer "filter_id"
+  end
+
+  create_table "keyword_category_relevances", force: :cascade do |t|
+    t.integer  "keyword_id"
+    t.integer  "category_id"
+    t.decimal  "relevance",   default: 0.0
+    t.integer  "occurrences", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "keyword_subcategory_relevances", force: :cascade do |t|
+    t.integer  "keyword_id"
+    t.integer  "subcategory_id"
+    t.decimal  "relevance",      default: 0.0
+    t.integer  "occurrences",    default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "keywords", force: :cascade do |t|

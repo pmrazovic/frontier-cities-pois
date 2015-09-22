@@ -3,4 +3,5 @@ class Subcategory < ActiveRecord::Base
 	belongs_to :category
 	has_many :filters
 	has_many :concept_subcategory_relevances
+	has_many :keyword_subcategory_relevances
 end
