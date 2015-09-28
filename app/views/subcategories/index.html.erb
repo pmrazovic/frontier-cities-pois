@@ -1,29 +1,23 @@
-<p id="notice"><%= notice %></p>
+<h3 style="margin-bottom: 30px;">List of POIs</h3>
 
-<h1>Listing Subcategories</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Category</th>
-      <th colspan="3"></th>
+      <th>Total POIs</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @subcategories.each do |subcategory| %>
       <tr>
-        <td><%= subcategory.name %></td>
-        <td><%= subcategory.category_id %></td>
-        <td><%= link_to 'Show', subcategory %></td>
-        <td><%= link_to 'Edit', edit_subcategory_path(subcategory) %></td>
-        <td><%= link_to 'Destroy', subcategory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><span class="label label-warning"><%= subcategory.name %></span></td>
+        <td><span class="label label-primary"><%= subcategory.category.name %></span></td>
+        <td><%= subcategory.pois.count %></td>
+        <td><%= link_to 'Statistics', get_concepts_subcategory_path(subcategory), :class => "btn btn-default btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Subcategory', new_subcategory_path %>

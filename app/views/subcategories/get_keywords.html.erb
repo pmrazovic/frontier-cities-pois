@@ -1,0 +1,23 @@
+<%= render :partial => 'tabs' %>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Rank</th>
+			<th>Keyword</th>
+			<th>Occurrences</th>
+			<th>Relevance score</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @keywords.each_with_index do |keyword, rank| %>
+			<tr>
+				<td><%= rank+1 %></td>
+				<td><%= keyword.text %></td>
+				<td><%= keyword.occurrences %></td>
+				<td><%= keyword.relevance %></td>
+			</tr>
+		<% end %>
+	</tbody>
+	
+</table>

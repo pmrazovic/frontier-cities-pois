@@ -1,0 +1,11 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Subcategories", subcategories_path  %></li>
+  <li class="active"><%= @subcategory.name %></li>
+</ol>
+
+<ul class="nav nav-tabs" style="margin-bottom: 30px;">
+  <li role="presentation" class="<%= 'active' if controller_name == 'subcategories' && action_name == 'get_concepts' %>"><%= link_to "Concept relevance", get_concepts_subcategory_path(@subcategory) %></li>
+  <li role="presentation" class="<%= 'active' if controller_name == 'subcategories' && action_name == 'get_entities' %>"><%= link_to "Entity relevance", get_entities_subcategory_path(@subcategory) %></li>
+  <li role="presentation" class="<%= 'active' if controller_name == 'subcategories' && action_name == 'get_keywords' %>"><%= link_to "Keyword relevance", get_keywords_subcategory_path(@subcategory) %></li>
+  <li role="presentation" class="<%= 'active' if controller_name == 'subcategories' && action_name == 'get_pois' %>"><%= link_to "POI relevance", get_pois_subcategory_path(@subcategory) %></li>
+</ul>

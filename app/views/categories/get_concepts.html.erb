@@ -1,0 +1,23 @@
+<%= render :partial => 'tabs' %>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Rank</th>
+			<th>Concept</th>
+			<th>Occurrences</th>
+			<th>Relevance score</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @concepts.each_with_index do |concept, rank| %>
+			<tr>
+				<td><%= rank+1 %></td>
+				<td><%= concept.name %></td>
+				<td><%= concept.occurrences %></td>
+				<td><%= concept.relevance %></td>
+			</tr>
+		<% end %>
+	</tbody>
+	
+</table>

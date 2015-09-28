@@ -1,27 +1,27 @@
-<p id="notice"><%= notice %></p>
+<h3 style="margin-bottom: 30px;">List of categories</h3>
 
-<h1>Listing Categories</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th>Subcategories</th>
+      <th>Total POIs</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @categories.each do |category| %>
       <tr>
-        <td><%= category.name %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><span class="label label-primary"><%= category.name %></span></td>
+        <td>
+                    <% category.subcategories.each do |subcat| %>
+            <span class="label label-warning"><%= subcat.name %></span>
+          <% end %>
+        </td>
+        <td><%= category.pois.count %></td>
+        <td><%= link_to 'Statistics', get_concepts_category_path(category), :class => "btn btn-default btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Category', new_category_path %>

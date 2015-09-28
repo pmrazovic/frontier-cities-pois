@@ -1,0 +1,39 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Subtitle</th>
+      <th>Categories</th>
+      <th>Subcategories</th>
+      <th></th>
+      <th>Total score</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @poi_scores.each do |poi, score| %>
+      <tr>
+        <td><%= poi.title %></td>
+        <td><%= poi.subtitle %></td>
+        <td>
+          <% poi.categories.each do |cat| %>
+            <span class="label label-primary"><%= cat.name %></span>
+          <% end %>
+        </td>
+        <td>
+          <% poi.subcategories.each do |subcat| %>
+            <span class="label label-warning"><%= subcat.name %></span>
+          <% end %>
+        </td>
+        <td>
+          <% PoiCategoryRelevance.joins(:category).where(:poi => poi).order(:category_id).select("categories.name as name, poi_category_relevances.normalized_relevance as normalized_relevance").each do |rel| %>
+            <%= "#{rel.name} --> #{rel.normalized_relevance}" %><br />
+          <% end %>
+        </td>
+        <td><%= score %></td>
+        <td><%= link_to 'More info', poi, :class => "btn btn-default btn-sm" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

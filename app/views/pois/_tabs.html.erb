@@ -1,4 +1,7 @@
-<%= link_to '<i class="fa fa-arrow-left"></i> Back to POIs'.html_safe, pois_path %>
+<ol class="breadcrumb">
+  <li><%= link_to "POIs", pois_path  %></li>
+  <li class="active"><%= @poi.title %></li>
+</ol>
 
 <h3 style="margin-bottom: 30px;"><%= @poi.title %></h3>
 

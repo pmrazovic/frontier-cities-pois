@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922102754) do
+ActiveRecord::Schema.define(version: 20150928100345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,19 @@ ActiveRecord::Schema.define(version: 20150922102754) do
     t.datetime "updated_at"
   end
 
+  create_table "poi_category_relevances", force: :cascade do |t|
+    t.integer  "poi_id"
+    t.integer  "category_id"
+    t.decimal  "total_relevance"
+    t.decimal  "concept_relevance"
+    t.decimal  "entity_relevance"
+    t.decimal  "keyword_relevance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "normalized_relevance"
+    t.decimal  "sum_relevance",        default: 0.0
+  end
+
   create_table "poi_concepts", force: :cascade do |t|
     t.integer  "poi_id"
     t.integer  "concept_id"
@@ -142,6 +155,19 @@ ActiveRecord::Schema.define(version: 20150922102754) do
     t.decimal  "relevance"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "poi_subcategory_relevances", force: :cascade do |t|
+    t.integer  "poi_id"
+    t.integer  "subcategory_id"
+    t.decimal  "total_relevance"
+    t.decimal  "concept_relevance"
+    t.decimal  "entity_relevance"
+    t.decimal  "keyword_relevance"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.decimal  "normalized_relevance"
+    t.decimal  "sum_relevance",        default: 0.0
   end
 
   create_table "pois", force: :cascade do |t|
@@ -165,6 +191,7 @@ ActiveRecord::Schema.define(version: 20150922102754) do
     t.string   "architect_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "top_20",            default: false
   end
 
   create_table "pois_subcategories", id: false, force: :cascade do |t|

@@ -1,5 +1,5 @@
 class SubcategoriesController < ApplicationController
-  before_action :set_subcategory, only: [:show, :edit, :update, :destroy]
+  before_action :set_subcategory, only: [:show, :edit, :update, :destroy, :get_concepts, :get_entities, :get_keywords, :get_pois]
 
   # GET /subcategories
   # GET /subcategories.json
@@ -59,6 +59,39 @@ class SubcategoriesController < ApplicationController
       format.html { redirect_to subcategories_url, notice: 'Subcategory was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def get_concepts
+    @concepts = ConceptSubcategoryRelevance.joins(:concept)
+                                        .where(:subcategory => @subcategory).order('relevance DESC')
+                                        .select("concepts.name as name, 
+                                                 concept_subcategory_relevances.relevance as relevance, 
+                                                 concept_subcategory_relevances.occurrences as occurrences")
+  end
+
+  def get_entities
+    @entities = EntitySubcategoryRelevance.joins(:entity)
+                                        .where(:subcategory => @subcategory).order('relevance DESC')
+                                        .select("entities.name as name, 
+                                                 entity_subcategory_relevances.relevance as relevance, 
+                                                 entity_subcategory_relevances.occurrences as occurrences")
+  end
+
+  def get_keywords
+    @keywords = KeywordSubcategoryRelevance.joins(:keyword)
+                                        .where(:subcategory => @subcategory).order('relevance DESC')
+                                        .select("keywords.text as text, 
+                                                 keyword_subcategory_relevances.relevance as relevance, 
+                                                 keyword_subcategory_relevances.occurrences as occurrences")
+  end
+
+  def get_pois
+    @pois = PoiSubcategoryRelevance.joins(:poi)
+                                   .where(:subcategory => @subcategory).order('normalized_relevance DESC')
+                                   .select("pois.id,
+                                            pois.title as title,
+                                            pois.subtitle as subtitle,
+                                            poi_subcategory_relevances.normalized_relevance as relevance")    
   end
 
   private

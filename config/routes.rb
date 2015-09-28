@@ -11,8 +11,24 @@ Rails.application.routes.draw do
     end
   end
   resources :filters
-  resources :subcategories
-  resources :categories
+  resources :subcategories do
+    member do
+      get 'get_concepts'
+      get 'get_entities'
+      get 'get_keywords'
+      get 'get_pois'
+    end
+  end
+  resources :categories do
+    member do
+      get 'get_concepts'
+      get 'get_entities'
+      get 'get_keywords'
+      get 'get_pois'
+    end
+  end
+  get 'recommender' => 'recommender#show', :as => 'recommender'
+  post 'recommender/rank' => 'recommender#rank', :as => 'recommender_rank'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -9,4 +9,5 @@ class Poi < ActiveRecord::Base
 	has_many :poi_entities
 	has_many :entities, :through => :poi_entities
 	belongs_to :neighborhood
+	has_many :poi_category_relevances
 end

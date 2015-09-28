@@ -1,0 +1,23 @@
+<%= render :partial => 'tabs' %>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Rank</th>
+			<th>Entity</th>
+			<th>Occurrences</th>
+			<th>Relevance score</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @entities.each_with_index do |entity, rank| %>
+			<tr>
+				<td><%= rank+1 %></td>
+				<td><%= entity.name %></td>
+				<td><%= entity.occurrences %></td>
+				<td><%= entity.relevance %></td>
+			</tr>
+		<% end %>
+	</tbody>
+	
+</table>

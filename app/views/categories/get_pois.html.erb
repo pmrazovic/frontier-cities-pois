@@ -1,0 +1,25 @@
+<%= render :partial => 'tabs' %>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Rank</th>
+			<th>Title</th>
+			<th>Subtitle</th>
+			<th>Relevance score</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @pois.each_with_index do |poi, rank| %>
+			<tr>
+				<td><%= rank+1 %></td>
+				<td><%= poi.title %></td>
+				<td><%= poi.subtitle %></td>
+				<td><%= poi.relevance %></td>
+				<td><%= link_to "More info", poi_path(:id => poi.id), :class => "btn btn-default btn-sm" %></td>
+			</tr>
+		<% end %>
+	</tbody>
+	
+</table>

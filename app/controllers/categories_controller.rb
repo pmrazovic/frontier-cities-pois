@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show, :edit, :update, :destroy, :get_concepts, :get_entities, :get_keywords, :get_pois]
 
   # GET /categories
   # GET /categories.json
@@ -59,6 +59,39 @@ class CategoriesController < ApplicationController
       format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def get_concepts
+    @concepts = ConceptCategoryRelevance.joins(:concept)
+                                        .where(:category => @category).order('relevance DESC')
+                                        .select("concepts.name as name, 
+                                                 concept_category_relevances.relevance as relevance, 
+                                                 concept_category_relevances.occurrences as occurrences")
+  end
+
+  def get_entities
+    @entities = EntityCategoryRelevance.joins(:entity)
+                                        .where(:category => @category).order('relevance DESC')
+                                        .select("entities.name as name, 
+                                                 entity_category_relevances.relevance as relevance, 
+                                                 entity_category_relevances.occurrences as occurrences")
+  end
+
+  def get_keywords
+    @keywords = KeywordCategoryRelevance.joins(:keyword)
+                                        .where(:category => @category).order('relevance DESC')
+                                        .select("keywords.text as text, 
+                                                 keyword_category_relevances.relevance as relevance, 
+                                                 keyword_category_relevances.occurrences as occurrences")
+  end
+
+  def get_pois
+    @pois = PoiCategoryRelevance.joins(:poi)
+                                .where(:category => @category).order('normalized_relevance DESC')
+                                .select("pois.id,
+                                         pois.title as title,
+                                         pois.subtitle as subtitle,
+                                         poi_category_relevances.normalized_relevance as relevance")
   end
 
   private

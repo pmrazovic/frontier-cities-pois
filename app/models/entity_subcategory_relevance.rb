@@ -1,4 +1,4 @@
 class EntitySubcategoryRelevance < ActiveRecord::Base
 	belongs_to :entity
-	belongs_to :category
+	belongs_to :subcategory
 end
