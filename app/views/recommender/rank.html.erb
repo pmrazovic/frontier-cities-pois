@@ -1,39 +1,79 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Subtitle</th>
-      <th>Categories</th>
-      <th>Subcategories</th>
-      <th></th>
-      <th>Total score</th>
-      <th></th>
-    </tr>
-  </thead>
+<ol class="breadcrumb">
+  <li><%= link_to "Recommender", recommender_path  %></li>
+  <li class="active">Results</li>
+</ol>
 
-  <tbody>
-    <% @poi_scores.each do |poi, score| %>
-      <tr>
-        <td><%= poi.title %></td>
-        <td><%= poi.subtitle %></td>
-        <td>
-          <% poi.categories.each do |cat| %>
-            <span class="label label-primary"><%= cat.name %></span>
-          <% end %>
-        </td>
-        <td>
-          <% poi.subcategories.each do |subcat| %>
-            <span class="label label-warning"><%= subcat.name %></span>
-          <% end %>
-        </td>
-        <td>
-          <% PoiCategoryRelevance.joins(:category).where(:poi => poi).order(:category_id).select("categories.name as name, poi_category_relevances.normalized_relevance as normalized_relevance").each do |rel| %>
-            <%= "#{rel.name} --> #{rel.normalized_relevance}" %><br />
-          <% end %>
-        </td>
-        <td><%= score %></td>
-        <td><%= link_to 'More info', poi, :class => "btn btn-default btn-sm" %></td>
+<% @routes.each_with_index do |route, route_id| %>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="active">
+        <th colspan="5">
+          Route <%= route_id + 1 %>
+        </th>
       </tr>
+      <tr>
+        <th>Title</th>
+        <th>Subtitle</th>
+        <th>Categories</th>
+        <th>Subcategories</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% route.each do |poi| %>
+        <tr>
+          <td><%= poi.title %></td>
+          <td><%= poi.subtitle %></td>
+          <td>
+            <% poi.categories.each do |cat| %>
+              <span class="label label-primary"><%= cat.name %></span>
+            <% end %>
+          </td>
+          <td>
+            <% poi.subcategories.each do |subcat| %>
+              <span class="label label-warning"><%= subcat.name %></span>
+            <% end %>
+          </td>
+          <td><%= link_to 'More info', poi, :class => "btn btn-default btn-sm" %></td>        
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div style="width: 100%; height: 300px; margin-bottom: 20px;"  id="map_<%= route_id %>"></div>
+  <script type='text/javascript'>
+    var map = new L.Map('map_<%= route_id %>', {center: new L.LatLng(41.387076, 2.170013), zoom: 13});
+    var googleLayer = new L.Google('ROADMAP');
+    map.addLayer(googleLayer);
+
+    L.marker([<%= @start_position[0] %>, <%= @start_position[1] %>]).addTo(map);
+    L.marker([<%= @finish_position[0] %>, <%= @finish_position[1] %>]).addTo(map);
+
+    <% route.each do |poi| %>
+      L.marker([<%= poi.latitude_decimal %>, <%= poi.longitude_decimal %>]).addTo(map);
     <% end %>
-  </tbody>
-</table>
+
+     var polylinePoints = [
+        new L.LatLng(<%= @start_position[0] %>, <%= @start_position[1] %>),
+        <%= route.collect{|p| "new L.LatLng(#{p.latitude_decimal}, #{p.longitude_decimal})"}.join(", ") %>,
+        new L.LatLng(<%= @finish_position[0] %>, <%= @finish_position[1] %>)
+     ];
+
+    var polylineOptions = {
+       color: 'blue',
+       weight: 1,
+       opacity: 0.9
+     };
+
+    var polyline = new L.Polyline(polylinePoints, polylineOptions);
+
+    map.addLayer(polyline);                        
+
+    // zoom the map to the polyline
+    map.fitBounds(polyline.getBounds());
+
+
+  </script>
+<% end %>
+

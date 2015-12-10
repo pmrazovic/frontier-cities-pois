@@ -146,4 +146,19 @@ namespace :poi_relevances do
 
   end
 
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

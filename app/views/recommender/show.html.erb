@@ -62,14 +62,57 @@
     <label for="shoppingSlider" class="col-sm-2 control-label">Shopping</label>
     <div class="col-sm-10">
       <input id="shoppingSlider"
-      			 name="shopping_pref"
-      			 class="slider" 
-      			 type="text" 
-      			 style="width: 500px;" 
-      			 data-slider-min="0" 
-      			 data-slider-max="100" 
-      			 data-slider-step="1" 
-      			 data-slider-value="50"/>
+             name="shopping_ptrf"
+             class="slider" 
+             type="text" 
+             style="width: 500px;" 
+             data-slider-min="0" 
+             data-slider-max="100" 
+             data-slider-step="1" 
+             data-slider-value="50"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="trip_budget" class="col-sm-2 control-label">Trip budget (min)</label>
+    <div class="col-sm-2">
+      <%= text_field_tag 'trip_budget', 300, :class => "form-control " %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="walking_speed" class="col-sm-2 control-label">Walking speed (m/min)</label>
+    <div class="col-sm-2">
+      <%= text_field_tag 'walking_speed', 65, :class => "form-control " %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="number_of_routes" class="col-sm-2 control-label">Number of routes</label>
+    <div class="col-sm-2">
+      <%= text_field_tag 'number_of_routes', 4, :class => "form-control " %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="start_position_lat" class="col-sm-2 control-label">Start position Lat</label>
+    <div class="col-sm-2">
+      <%= text_field_tag 'start_position_lat', 41.375128, :class => "form-control " %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="start_position_lng" class="col-sm-2 control-label">Start position Lng</label>
+    <div class="col-sm-2">
+      <%= text_field_tag 'start_position_lng', 2.168350, :class => "form-control " %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="finish_position_lat" class="col-sm-2 control-label">Finish position Lat</label>
+    <div class="col-sm-2">
+      <%= text_field_tag 'finish_position_lat', 41.375128, :class => "form-control " %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="start_position_lng" class="col-sm-2 control-label">Finish position Lng</label>
+    <div class="col-sm-2">
+      <%= text_field_tag 'finish_position_lng', 2.168350, :class => "form-control " %>
     </div>
   </div>
   <div class="form-group">
