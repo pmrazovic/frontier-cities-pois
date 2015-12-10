@@ -48,6 +48,11 @@ Rails.application.configure do
   # when problems arise.
   config.log_level = :debug
 
+  config.serve_static_files = false
+config.assets.js_compressor = :uglifier
+config.assets.compile = false
+config.assets.digest = true
+
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 
