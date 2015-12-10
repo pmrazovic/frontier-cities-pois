@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @categories = Category.where(:id => [2, 3, 4, 5, 8])
   end
 
   # GET /categories/1

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       get 'get_poi_concepts'
       get 'get_poi_text_categorization'
       get 'get_poi_taxonomy'
+      get 'adjust_scores'
+      post 'submit_new_scores'
     end
   end
   resources :filters

@@ -1,7 +1,7 @@
 require 'alchemyapi'
 
 class PoisController < ApplicationController
-  before_action :set_poi, only: [:show, :edit, :update, :destroy, :get_poi_keywords, :get_poi_entities, :get_poi_concepts, :get_poi_text_categorization, :get_poi_taxonomy]
+  before_action :set_poi, only: [:show, :edit, :update, :destroy, :get_poi_keywords, :get_poi_entities, :get_poi_concepts, :get_poi_text_categorization, :get_poi_taxonomy, :adjust_scores, :submit_new_scores]
 
   # GET /pois
   # GET /pois.json
@@ -86,6 +86,39 @@ class PoisController < ApplicationController
   def get_poi_taxonomy
     alchemyapi = AlchemyAPI.new()
     @response = alchemyapi.taxonomy('text', @poi.description)
+  end
+
+  def adjust_scores
+  end
+
+  def submit_new_scores
+    begin
+      rel_museum = @poi.poi_category_relevances.where(:category_id => 2).first
+      rel_museum.normalized_relevance = params[:museums_score].to_f
+      rel_museum.save!
+
+      rel_arch = @poi.poi_category_relevances.where(:category_id => 3).first
+      rel_arch.normalized_relevance = params[:architecture_score].to_f
+      rel_arch.save!
+
+      rel_art = @poi.poi_category_relevances.where(:category_id => 4).first
+      rel_art.normalized_relevance = params[:art_score].to_f
+      rel_art.save!
+
+      rel_leisure = @poi.poi_category_relevances.where(:category_id => 5).first
+      rel_leisure.normalized_relevance = params[:leisure_score].to_f
+      rel_leisure.save!
+
+      rel_shop = @poi.poi_category_relevances.where(:category_id => 8).first
+      rel_shop.normalized_relevance = params[:shopping_score].to_f
+      rel_shop.save!
+
+      flash[:success] = "POI scores successfully updated!"
+    rescue
+      flash[:error] = "Errors were encountered while saving the POI scores!"
+    end
+
+    redirect_to :action => :adjust_scores
   end
 
   private

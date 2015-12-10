@@ -1,0 +1,48 @@
+<%= render :partial => 'tabs' %>
+
+<%= form_tag submit_new_scores_poi_path(:id => @poi.id), :class => "form-horizontal" do |f| %>
+
+  <div class="form-group">
+    <%= label_tag :museums_score, "Museums score", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= number_field_tag :museums_score, @poi.poi_category_relevances.where(:category_id => 2).first.normalized_relevance, :min => 0.0, :max => 1.0, :step => "any", :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :architecture_score, "Architecture score", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= number_field_tag :architecture_score, @poi.poi_category_relevances.where(:category_id => 3).first.normalized_relevance, :min => 0.0, :max => 1.0, :step => "any", :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :art_score, "Art score", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= number_field_tag :art_score, @poi.poi_category_relevances.where(:category_id => 4).first.normalized_relevance, :min => 0.0, :max => 1.0, :step => "any", :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :leisure_score, "Leisure score", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= number_field_tag :leisure_score, @poi.poi_category_relevances.where(:category_id => 5).first.normalized_relevance, :min => 0.0, :max => 1.0, :step => "any", :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :shopping_score, "Shopping score", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= number_field_tag :shopping_score, @poi.poi_category_relevances.where(:category_id => 8).first.normalized_relevance, :min => 0.0, :max => 1.0, :step => "any", :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= button_tag(:type => 'submit', :class => "btn btn-primary") do %>
+        <i class="fa fa-check"></i> Save POI scores
+      <% end %>
+    </div>
+  </div>
+
+<% end %>
