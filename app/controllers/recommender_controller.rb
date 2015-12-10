@@ -30,7 +30,8 @@ class RecommenderController < ApplicationController
 			@poi_scores[poi] = total_score
 		end
 		
-		@poi_scores = @poi_scores.sort_by{|k,v| v}.reverse.to_h
+		@poi_scores = @poi_scores.sort_by{|k,v| v}.reverse
+		puts @poi_scores.inspect
 		top_pois = Array.new
 		@poi_scores.take(70).each do |poi, score|
 			next if poi.latitude_decimal.nil? || poi.longitude_decimal.nil?
