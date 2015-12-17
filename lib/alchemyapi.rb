@@ -90,7 +90,9 @@ class AlchemyAPI
 	
 	
 	def initialize()
-		@apiKey = '7c2a2e01fea12539a3669be0f8eb53b32afdc178'
+		# @apiKey = '7c2a2e01fea12539a3669be0f8eb53b32afdc178' # petar
+		# @apiKey = 'b4f497c90194c27850c2958b787f2d3f092e28d7' # joan
+		@apiKey = '512e0f0ebf8a3db5b53a9a0bc28685c2b2632ad5' # david
 	end
 
 

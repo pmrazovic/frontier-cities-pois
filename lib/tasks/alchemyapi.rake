@@ -15,6 +15,14 @@ namespace :alchemyapi do
 
   	pois.each_with_index do |poi, index|
   		response = alchemyapi.combined('text', poi.description, { 'extract'=>'keyword,entity,concept' })
+  		
+  		if response["status"] == "ERROR"
+  			puts "ERROR!"
+  			puts poi.inspect
+  			puts index
+  			break
+  		end
+
   			# Keywords
 				if response.key?('keywords')
 					for keyword in response['keywords']
@@ -39,7 +47,7 @@ namespace :alchemyapi do
 					end
 				end		
 
-				print "\r#{(((index+1).to_f/pois.length)*100).round(2)}% complete"		
+				print "\r#{(((index+1).to_f/pois.length)*100).round(2)}% complete (idx = #{index}, poi_id = #{poi.id})"		
 
   	end
 
